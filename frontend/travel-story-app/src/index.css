@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Lilita+One&family=Manrope:wght@200..800&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+
+ 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;  
+
+.rdp-root{ 
+  --rdp-accent-color:#BDC667;
+  --rdp-accent-background-color:#b8f132;
+  --rdp-day_button-border-radius:8px;
+  --rdp-selected-font: bold medium (var(--rdp-selected-font));
+}
+
+
+
+@layer base {   
+  
+  html{ 
+    font-family: "Merriweather","sans-serif";
+  } 
+  body{ 
+    background-color: #fdfeff;
+    overflow-x:hidden
+  }
+}   
+
+
+ 
+   .scrollbar::-webkit-scrollbar{ 
+    width: 3px;
+    height: 3px;
+   } 
+   .scrollbar::-webkit-scrollbar-thumb{ 
+    background-color:  #56282D;
+    border-radius: 1px;
+   } 
+   .scrollbar::-webkit-scrollbar-track{ 
+    background-color:  #544343;
+   } 
+
+@layer components{ 
+  .input-box { 
+    @apply w-full text-sm bg-cyan-600/5 rounded px-5 py-3 mb-4 outline-none;
+  } 
+  .login-iu-box{ 
+    @apply w-80 h-[450px] rounded-full bg-primary absolute rotate-45;
+  } 
+  .icon-btn{ 
+    @apply text-[22px]  cursor-pointer hover:text-purple-500;
+  }  
+  .model-box{ 
+    @apply w-[80vw] md:w-[40%] h-[80vh] bg-white rounded-lg mx-auto mt-14 p-5 overflow-y-scroll scrollbar z-50; 
+  }  
+  .btn-small{ 
+    @apply flex items-center gap-1 text-xs font-medium bg-primary text-black shadow-gray-100 hover:bg-tertiary hover:text-white rounded px-3 py-[-3] ; 
+  } 
+  .btn-delete{ 
+    @apply bg-rose-50 text-rose-500 shadow-rose-100/0 border border-rose-100 hover:bg-rose-500 hover:text-white; 
+  }  
+  .input-label{ 
+    @apply text-xs text-slate-400; 
+  } 
+}
