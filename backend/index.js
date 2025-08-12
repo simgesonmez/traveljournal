@@ -1,4 +1,6 @@
 require("dotenv").config();
+ 
+
 
 const config = require("./config.json");
 const mongoose = require("mongoose");
@@ -148,7 +150,7 @@ app.put("/edit-story/:id", authenticateToken, async (req,res) => {
         const{title,story,visitedLocation,imageUrl,visitedDate} = req.body;
         const{userId} = req.user;
         // gerekli alanlar 
-if (!title || !story || !visitedLocation || !imageUrl || !visitedDate){ 
+if (!title || !story || !visitedLocation || !visitedDate){ 
     return res.status(400).json({error: true, message: "Tüm alanların doldurulması zorunludur." });
 } 
 // visited date date object çevirme  
@@ -213,9 +215,9 @@ try{
         return res.status(400).json({error:true, message:"Fotoğraf yüklenemedi."});
     } 
     const imageUrl = `http://localhost:8000/uploads/${req.file.filename}`;
-    res.status(201).json({imageUrl});
+    res.status(200).json({imageUrl});
 }catch(error){ 
-    res.status(201).json({error:true,message:error.message});
+    res.status(500).json({error:true,message:error.message});
 }
 
 }); 
