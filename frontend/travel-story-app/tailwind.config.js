@@ -19,8 +19,8 @@ export default {
         accent:"#544343",
       }, 
       backgroundImage:{ 
-        'login-bg-img':"url('./src/assets/images/bg.jpeg')",
-        'signup-bg-img':"url('./src/assets/images/signupphoto.jpeg')"
+        'login-bg-img':"url('./src/assets/images/login.jpeg')",
+        'signup-bg-img':"url('./src/assets/images/sign.jpeg')"
       }
     }, 
   },

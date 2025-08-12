@@ -37,12 +37,12 @@ const TravelStoryCard = ({
         <div className="absolute w-56 left-0 p-5 -bottom-16 duration-500 group-hover:-translate-y-12">
           <div className="absolute -z-10 left-0 w-64 h-28 opacity-0 duration-500 group-hover:opacity-50 group-hover:bg-accent"></div>
 
-          <div className="flex justify-between items-center mb-1">
-            <span className="text-xl font-bold">{title}</span>
+          <div className=" flex justify-between items-center mb-1">
+            <span className="text-xl font-bold">{ title.length > 150 ? story.slice(0, 150) + "..." : title}</span>
           
           </div>
 
-          <p className="text-sm opacity-0 group-hover:opacity-100 duration-500">{story}</p>
+          <p className="text-sm opacity-0 group-hover:opacity-100 duration-500"> {story.length > 40 ? story.slice(0, 40) + "..." : story}</p>
 
           <div className="flex items-center mt-2 text-xs gap-2 opacity-0 group-hover:opacity-100 duration-500">
             <GrMapLocation />

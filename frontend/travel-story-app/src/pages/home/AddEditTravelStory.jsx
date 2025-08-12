@@ -12,15 +12,16 @@ const AddEditTravelStory = ({ storyInfo,
     onClose,
     getAllTravelStories, 
 }) => {  
-    const [title, setTitle] = useState("");
-    const [storyImg, setStoryImg] = useState(null);
-    const [story, setStory] = useState("");
-    const [visitedLocation, setVisitedLocation] = useState([]);
-    const [visitedDate, setVisitedDate] = useState(null); 
+    const [title, setTitle] = useState(storyInfo?.title || "");
+    const [storyImg, setStoryImg] = useState(storyInfo?.imageUrl || null);
+    const [story, setStory] = useState(storyInfo?.story || "");
+    const [visitedLocation, setVisitedLocation] = useState(storyInfo?.visitedLocation || []);
+    const [visitedDate, setVisitedDate] = useState(storyInfo?.visitedDate || null); 
 
     const [error,setError] = useState("") 
     // add travel story 
-    const addNewTravelStory = async () => { 
+    const addNewTravelStory = async () => {  
+      
       try { 
         let imageUrl = ""; 
         //upload image if present 
@@ -46,12 +47,67 @@ const AddEditTravelStory = ({ storyInfo,
           onClose(); 
         }
         }catch(error){ 
-          
+          if (
+            error.response && 
+            error.response.data && 
+            error.response.data.message
+          ) { 
+            setError(error.response.data.message);
+          }else{ 
+            //aciklanamayan hata 
+            setError("Açıklanamayan bir sorun oluştu. Lütfen daha sonra tekrar deneyiniz.");
+          }
+            
         }
       
     }
     //update Travel Story
-   const updateTravelStory = async () => {}
+   const updateTravelStory = async () => {  
+    const storyId = storyInfo._id;
+     try { 
+        let imageUrl = "";  
+
+        let  postData = { 
+          title,
+          story,
+          imageUrl: storyInfo.imageUrl || "",
+          visitedLocation,
+          visitedDate: visitedDate 
+          ? moment(visitedDate).valueOf() 
+          : moment().valueOf(),
+        };
+        if (typeof storyImg === "object") { 
+          //yeni fotoğraf ekleme  
+          const imgUploadRes = await uploadImage(storyImg);
+          imageUrl = imgUploadRes.imageUrl || "" ;
+          postData = { 
+            ...postData,
+            imageUrl: imageUrl,
+          };
+        }
+     
+        const response = await axiosInstance.put("/edit-story/" + storyId, postData);
+        if (response.data && response.data.story){ 
+          toast.success("Hikaye başarıyla güncellendi."); 
+          // refresh stories 
+          getAllTravelStories();
+          //close modal or form 
+          onClose(); 
+        }
+        }catch(error){ 
+          if (
+            error.response && 
+            error.response.data && 
+            error.response.data.message
+          ) { 
+            setError(error.response.data.message);
+          }else{ 
+            //aciklanamayan hata 
+            setError("Açıklanamayan bir sorun oluştu. Lütfen daha sonra tekrar deneyiniz.");
+          }
+            
+        }
+   }
 
     const handleAddOrUpdateClick = () => {  
       console.log("Input Data:,",{title,storyImg,story,visitedLocation,visitedDate}) 
@@ -70,9 +126,33 @@ const AddEditTravelStory = ({ storyInfo,
       }
     }; 
 
-    const handleDeleteStoryImg = async () => {}
+    const handleDeleteStoryImg = async () => { 
+      //fotoğraf silmek 
+      const deleteImgRes = await axiosInstance.delete("/delete-image",{ 
+        params: { 
+          imageUrl: storyInfo.imageUrl,
+        },
+      }); 
+      if(deleteImgRes.data) { 
+        const storyId = storyInfo._id; 
+
+        const postData = { 
+          title,
+          story,
+          visitedLocation,
+          visitedDate: moment().valueOf(),
+          imageUrl: "",
+        }; 
+        //fotoğraf güncellemek 
+        const response = await axiosInstance.put( 
+          "/edit-story" + storyId,
+          postData
+        ); 
+        setStory(null);
+      }
+    };
   return (
-    <div>
+    <div className='relative'>
       <div className='flex items-center justify-between'> 
         <h5 className='text-xl font-medium text-slate-700'> 
             {type === "add" ? "Hikaye Ekle" : "Hikaye Güncelle"}

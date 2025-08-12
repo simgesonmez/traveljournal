@@ -48,10 +48,10 @@ const Login = () => {
       <div className='container h-screen flex items-center justify-center px-20 mx-auto'>
         <div className='w-2/4 h-[90vh] flex items-end bg-login-bg-img bg-cover bg-center rounded-lg p-10 z-50'> 
           <div > 
-              <h4 className='text-5xl text-white font-semibold leading-[58px]'>
+              <h4 className='text-5xl text-[#544343] font-semibold leading-[58px]'>
                 Yolculuklarınızı Ölümsüzleştirin
               </h4> 
-              <p className='text-[15px] text-white leading-6 pr-7 mt-[260px] transform translate-y-[-250px]'>
+              <p className='text-[15px] text-grey leading-6 pr-7 mt-[260px] transform translate-y-[-250px]'>
                 Kişisel seyehat günlüğünde anıların ve tecrübelerin sonsuza kadar 
                 seninle olsun.
               </p>

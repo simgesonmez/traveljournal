@@ -3,6 +3,8 @@ import React from "react";
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/SignUp";
 import Home from "./pages/home/Home";
+import 'react-day-picker/dist/style.css';
+import './index.css'; // yukarıdaki CSS’in bulunduğu dosya
 
 const App = () => {
   return (
